@@ -1,0 +1,11 @@
+# Claude Code (lokale Sitzungs-Einstellungen)
+.claude/
+
+# Editoren & IDEs
+.vscode/
+.idea/
+*.iml
+
+# Betriebssystem
+.DS_Store
+Thumbs.db

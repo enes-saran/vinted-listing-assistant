@@ -1,0 +1,22 @@
+{
+  "name": "Vinted Listing Assistant",
+  "short_name": "Vinted AI",
+  "description": "Erstellt aus Fotos automatisch Titel und Beschreibung für Vinted-Anzeigen.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f2f2f7",
+  "theme_color": "#007782",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

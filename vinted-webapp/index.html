@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#007782">
+  <title>Vinted Listing Assistant</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Vinted Listing Assistant</h1>
+      <button id="settingsToggle" title="Einstellungen">⚙️</button>
+    </header>
+
+    <section id="settings" class="card hidden">
+      <label for="apiKey">OpenAI API-Key</label>
+      <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off">
+      <label for="model">Modell</label>
+      <div class="row">
+        <input type="text" id="model" placeholder="gpt-5.4-mini">
+        <button id="saveSettings">Speichern</button>
+      </div>
+      <p class="hint">Key und Modell werden nur lokal auf diesem Gerät gespeichert.</p>
+    </section>
+
+    <section class="card">
+      <label class="dropzone" id="dropzone">
+        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+        <span>📷 Fotos auswählen</span>
+        <span class="hint">Am besten 5–6 Fotos des Kleidungsstücks</span>
+      </label>
+      <div id="previews"></div>
+    </section>
+
+    <button id="generateBtn" class="primary" disabled>✨ Titel &amp; Beschreibung generieren</button>
+
+    <section id="result" class="card hidden">
+      <div class="field-head">
+        <label for="titleOut">Titel</label>
+        <button class="copy" data-copy="titleOut">📋 Kopieren</button>
+      </div>
+      <input type="text" id="titleOut">
+
+      <div class="field-head">
+        <label for="descOut">Beschreibung</label>
+        <button class="copy" data-copy="descOut">📋 Kopieren</button>
+      </div>
+      <textarea id="descOut" rows="9"></textarea>
+
+      <p class="hint">Texte kopieren und in der Vinted-App beim Erstellen der Anzeige einfügen.</p>
+    </section>
+
+    <p id="status" class="hidden"></p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

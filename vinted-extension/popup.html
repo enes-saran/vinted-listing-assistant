@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Vinted Listing Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Vinted Listing Assistant</h1>
+    <button id="settingsToggle" title="API-Key Einstellungen">⚙️</button>
+  </header>
+
+  <section id="settings" class="hidden">
+    <label for="apiKey">OpenAI API-Key</label>
+    <input type="password" id="apiKey" placeholder="sk-...">
+    <label for="model">Modell</label>
+    <div class="row">
+      <input type="text" id="model" placeholder="gpt-5.4-mini">
+      <button id="saveKey">Speichern</button>
+    </div>
+    <p class="hint">Der Key wird nur lokal in deinem Browser gespeichert.</p>
+  </section>
+
+  <section id="upload">
+    <label class="dropzone" id="dropzone">
+      <input type="file" id="fileInput" accept="image/*" multiple hidden>
+      <span>📷 Bilder auswählen oder hierher ziehen</span>
+      <span class="hint">Am besten 5–6 Fotos des Kleidungsstücks</span>
+    </label>
+    <div id="previews"></div>
+  </section>
+
+  <button id="generateBtn" class="primary" disabled>✨ Titel &amp; Beschreibung generieren</button>
+
+  <section id="result" class="hidden">
+    <label for="titleOut">Titel</label>
+    <input type="text" id="titleOut">
+    <label for="descOut">Beschreibung</label>
+    <textarea id="descOut" rows="8"></textarea>
+    <button id="fillBtn" class="primary">📝 In Vinted eintragen</button>
+  </section>
+
+  <p id="status" class="hidden"></p>
+
+  <script src="popup.js"></script>
+</body>
+</html>

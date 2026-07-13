@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Vinted Listing Assistant",
+  "description": "Erstellt automatisch Titel und Beschreibung für Vinted-Anzeigen aus Fotos (via GPT-4o) und trägt sie direkt ins Verkaufsformular ein.",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Vinted Listing Assistant"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://api.openai.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.vinted.de/*",
+        "https://*.vinted.com/*",
+        "https://*.vinted.at/*",
+        "https://*.vinted.fr/*",
+        "https://*.vinted.it/*",
+        "https://*.vinted.es/*",
+        "https://*.vinted.nl/*",
+        "https://*.vinted.be/*",
+        "https://*.vinted.pl/*",
+        "https://*.vinted.cz/*",
+        "https://*.vinted.sk/*",
+        "https://*.vinted.lt/*",
+        "https://*.vinted.pt/*",
+        "https://*.vinted.co.uk/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
