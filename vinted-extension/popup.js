@@ -16,6 +16,7 @@ const els = {
   titleOut: document.getElementById("titleOut"),
   descOut: document.getElementById("descOut"),
   fillBtn: document.getElementById("fillBtn"),
+  resetBtn: document.getElementById("resetBtn"),
   status: document.getElementById("status"),
 };
 
@@ -42,6 +43,7 @@ chrome.storage.local.get(["apiKey", "model", "lastResult"]).then(({ apiKey, mode
     els.titleOut.value = lastResult.title;
     els.descOut.value = lastResult.description || "";
     els.result.classList.remove("hidden");
+    updateResetVisibility();
   }
 });
 
@@ -113,6 +115,12 @@ function renderPreviews() {
     els.previews.appendChild(wrap);
   });
   els.generateBtn.disabled = images.length === 0;
+  updateResetVisibility();
+}
+
+function updateResetVisibility() {
+  const hasContent = images.length > 0 || !els.result.classList.contains("hidden");
+  els.resetBtn.classList.toggle("hidden", !hasContent);
 }
 
 /** Verkleinert ein Bild auf max. MAX_IMAGE_DIMENSION px und gibt eine JPEG-Data-URL zurück. */
@@ -227,6 +235,19 @@ els.generateBtn.addEventListener("click", async () => {
   } finally {
     els.generateBtn.disabled = images.length === 0;
   }
+});
+
+// ---------- Zurücksetzen ----------
+
+els.resetBtn.addEventListener("click", async () => {
+  images = [];
+  els.fileInput.value = "";
+  els.titleOut.value = "";
+  els.descOut.value = "";
+  els.result.classList.add("hidden");
+  await chrome.storage.local.remove("lastResult");
+  renderPreviews();
+  showStatus("Bereit für das nächste Kleidungsstück.", "success");
 });
 
 // ---------- In Vinted eintragen ----------

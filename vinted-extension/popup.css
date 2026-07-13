@@ -94,6 +94,13 @@ button:disabled {
   cursor: not-allowed;
 }
 
+button.secondary {
+  background: #fff;
+  border-color: #c7c7cc;
+  color: #1c1c1e;
+  width: 100%;
+}
+
 .dropzone {
   display: flex;
   flex-direction: column;

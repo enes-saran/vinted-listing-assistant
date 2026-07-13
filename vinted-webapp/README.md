@@ -70,6 +70,9 @@ Die Texte bleiben gespeichert — man kann also beliebig zwischen den beiden
 Apps hin- und herwechseln, ohne dass etwas verloren geht. Vor dem Kopieren
 kann man die Texte auch noch direkt in den Feldern anpassen.
 
+Für das nächste Kleidungsstück einfach unten auf **„🗑️ Zurücksetzen“**
+tippen — Fotos und Texte werden geleert, alle Einstellungen bleiben erhalten.
+
 ## Wenn etwas nicht klappt
 
 | Problem | Lösung |
