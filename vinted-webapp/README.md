@@ -89,8 +89,8 @@ kann man die Texte auch noch direkt in den Feldern anpassen.
 - API-Key und Modell liegen in `localStorage`, Standard-Modell `gpt-5.6-luna`
   (im ⚙️-Menü per Auswahlliste änderbar, Kosten-Übersicht in
   `../vinted-extension/README.md`); Bilder werden clientseitig auf max.
-  1024 px verkleinert und mit `detail: "low"` gesendet — Kosten pro Anzeige
-  je nach Modell ~0,3 bis ~1 Cent
+  1536 px verkleinert und mit `detail: "high"` gesendet, damit die KI
+  Etiketten lesen kann — Kosten pro Anzeige je nach Modell ~0,8 bis ~3 Cent
 - Lokaler Schnelltest: `python3 -m http.server 8080` in diesem Ordner, dann
   am Handy `http://<IP-des-Rechners>:8080` öffnen (gleiches WLAN); ohne HTTPS
   greift beim Kopieren automatisch ein Fallback

@@ -1,7 +1,7 @@
 // Minimaler Service Worker: cached die App-Shell, damit die PWA installierbar ist
 // und offline startet. API-Aufrufe gehen immer direkt ins Netz.
 
-const CACHE_NAME = "vinted-assistant-v2";
+const CACHE_NAME = "vinted-assistant-v3";
 const SHELL = [
   ".",
   "index.html",

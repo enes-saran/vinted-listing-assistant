@@ -1,5 +1,5 @@
 const MAX_IMAGES = 8;
-const MAX_IMAGE_DIMENSION = 1024; // Bilder werden vor dem Upload verkleinert, um Tokens zu sparen
+const MAX_IMAGE_DIMENSION = 1536; // groß genug, damit die KI Etiketten (Größe, Material, Herkunft) lesen kann
 const DEFAULT_MODEL = "gpt-5.6-luna";
 
 const STORAGE_KEYS = {
@@ -160,16 +160,16 @@ const SYSTEM_PROMPT = `Du bist ein Experte für Secondhand-Mode und schreibst ve
 Du bekommst mehrere Fotos desselben Kleidungsstücks und antwortest ausschließlich mit einem JSON-Objekt:
 {"title": "...", "description": "..."}
 
-Schau dir alle Fotos gründlich an, auch Etiketten, Waschzettel, Nähte, Knöpfe, Reißverschlüsse und Prints.
+Schau dir alle Fotos gründlich an. Lies Etiketten und Waschzettel genau – dort stehen oft Größe, Material und Herstellungsland.
 
-Regeln für den Titel (max. 60 Zeichen):
-- Marke (falls erkennbar), Art des Kleidungsstücks, wichtigstes Merkmal (Farbe/Muster/Stil)
-- Größe nur nennen, wenn sie auf einem Etikett klar lesbar ist
+Regeln für den Titel (max. 60 Zeichen, keyword-optimiert für die Vinted-Suche):
+- Reihenfolge: Marke, Art des Kleidungsstücks, Herren/Damen (falls eindeutig), "Gr. X" (falls auf Etikett lesbar), Farbe(n), Material (falls lesbar)
+- Beispiel: "HUGO BOSS Poloshirt Herren Gr. M Schwarz Dunkelblau Baumwolle"
 
-Regeln für die Beschreibung (ca. 80-140 Wörter, drei kurze Absätze):
-1. Absatz – Was ist es: Art des Kleidungsstücks, Marke, Farbe(n), Muster, Schnitt/Stil (z. B. Oversized, tailliert, High-Waist). Material und Größe nur, wenn auf einem Etikett lesbar.
-2. Absatz – Details und Zustand: Besonderheiten wie Taschen, Knöpfe, Reißverschlüsse, Kapuze, Prints, Stickereien, Waschung. Den Zustand ehrlich einschätzen (z. B. neuwertig, sehr gut, gut) und sichtbare Mängel wie Pilling, Flecken oder ausgeblichene Stellen klar benennen.
-3. Absatz – Passform und Styling: Wie das Teil fällt bzw. wirkt und wozu es passt (Anlässe, Kombinationen, Jahreszeit).
+Aufbau der Beschreibung (drei Teile, durch Leerzeilen getrennt):
+1. Ein Fließtext-Absatz (60-100 Wörter): was es genau ist, Marke, Farben/Muster, auffällige Details (z. B. Kragen, Knopfleiste, gesticktes Logo, Prints, Taschen), ehrliche Zustandseinschätzung inklusive sichtbarer Mängel (z. B. Pilling, Flecken), und wozu es passt (Anlässe, Styling).
+2. Eine Steckbrief-Liste, eine Angabe pro Zeile, im Format "Marke: ...". Mögliche Zeilen: Marke, Größe, Farbe, Material, Hergestellt in, Passform, Zustand. Nimm nur Zeilen auf, deren Wert auf den Fotos sicher erkennbar ist – lass unbekannte Zeilen komplett weg.
+3. Als letzte Zeile exakt: "Bei Fragen oder Interesse einfach melden. Versand und Bundle-Rabatt möglich."
 
 Wichtig:
 - Freundlicher, ehrlicher Ton, keine übertriebenen Verkaufsfloskeln
@@ -191,9 +191,11 @@ els.generateBtn.addEventListener("click", async () => {
   try {
     const content = [
       { type: "text", text: "Erstelle Titel und Beschreibung für dieses Kleidungsstück." },
+      // detail "high", damit Etiketten lesbar sind – mit "low" wird das Bild
+      // API-seitig so stark verkleinert, dass Größe/Material nicht erkannt werden
       ...images.map((img) => ({
         type: "image_url",
-        image_url: { url: img.dataUrl, detail: "low" },
+        image_url: { url: img.dataUrl, detail: "high" },
       })),
     ];
 
@@ -218,7 +220,13 @@ els.generateBtn.addEventListener("click", async () => {
 
     if (!response.ok) {
       const err = await response.json().catch(() => null);
-      throw new Error(err?.error?.message || `OpenAI-Fehler (HTTP ${response.status})`);
+      const raw = err?.error?.message || `OpenAI-Fehler (HTTP ${response.status})`;
+      if (/verif|permission|not have access|model_not_found/i.test(raw)) {
+        throw new Error(
+          "Dein OpenAI-Konto hat keinen Zugriff auf dieses Modell. Wähle im ⚙️-Menü ein anderes Modell."
+        );
+      }
+      throw new Error(raw);
     }
 
     const data = await response.json();

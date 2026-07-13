@@ -38,19 +38,26 @@ einmalig Prepaid-Guthaben auf und zahlst pro Anfrage.
 
 ## Modellwahl
 
-Im ⚙️-Menü lässt sich das KI-Modell per Auswahlliste wechseln. Kosten pro
-Anzeige (5–6 Fotos, verkleinert, `detail: "low"` — grobe Schätzung bei
-~800 Input- und ~600 Output-Tokens):
+Im ⚙️-Menü lässt sich das KI-Modell per Auswahlliste wechseln. Die Bilder
+werden mit `detail: "high"` gesendet, damit die KI Etiketten lesen kann
+(Größe, Material, Herstellungsland) — das macht den Großteil der Kosten aus.
+Grobe Schätzung pro Anzeige bei 5–6 Fotos (~7.000 Input-, ~600 Output-Tokens):
 
 | Modell | Preis pro 1M Tokens (Input/Output) | Kosten pro Anzeige |
 |---|---|---|
-| `gpt-5.6-luna` (Standard) | $1.00 / $6.00 | ~0,5 Cent |
-| `gpt-5.6-terra` | $2.50 / $15.00 | ~1 Cent |
-| `gpt-5.4-mini` | $0.75 / $4.50 | ~0,3 Cent |
+| `gpt-5.6-luna` (Standard) | $1.00 / $6.00 | ~1 Cent |
+| `gpt-5.4` | $2.50 / $15.00 | ~3 Cent |
+| `gpt-5.4-mini` | $0.75 / $4.50 | ~0,8 Cent |
 
-Selbst mit dem besten Modell erstellt man für $5 Guthaben also noch
-mehrere hundert Anzeigen. Das ältere `gpt-4o` lohnt sich nicht mehr:
-teurer als die Mini-Modelle bei schlechterer Qualität.
+Selbst mit dem größten Modell erstellt man für $5 Guthaben also noch weit
+über hundert Anzeigen.
+
+Hinweis: Die Top-Modelle `gpt-5.6-terra` und `gpt-5.6-sol` verlangen eine
+verifizierte OpenAI-Organisation („Your organization must be verified …“) und
+stehen deshalb nicht in der Auswahlliste. Wer die Verifizierung auf
+[platform.openai.com](https://platform.openai.com/settings/organization/general)
+durchgeführt hat, kann sie in `popup.html` / `index.html` als weitere
+`<option>` ergänzen.
 
 ## Benutzung
 
