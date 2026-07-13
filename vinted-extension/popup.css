@@ -42,12 +42,19 @@ label {
 
 input[type="text"],
 input[type="password"],
+select,
 textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #d1d1d6;
   border-radius: 6px;
   font: inherit;
+  background: #fff;
+}
+
+.row select {
+  min-width: 0;
+  flex: 1;
 }
 
 textarea {

@@ -1,6 +1,6 @@
 const MAX_IMAGES = 8;
 const MAX_IMAGE_DIMENSION = 1024; // Bilder werden vor dem Upload verkleinert, um Tokens zu sparen
-const DEFAULT_MODEL = "gpt-5.4-mini";
+const DEFAULT_MODEL = "gpt-5.6-luna";
 
 const els = {
   settingsToggle: document.getElementById("settingsToggle"),
@@ -26,6 +26,11 @@ let images = [];
 
 chrome.storage.local.get(["apiKey", "model", "lastResult"]).then(({ apiKey, model, lastResult }) => {
   els.model.value = model || DEFAULT_MODEL;
+  // Gespeichertes Modell, das nicht (mehr) in der Auswahlliste steht → auf Standard zurückfallen
+  if (!els.model.value) {
+    els.model.value = DEFAULT_MODEL;
+    chrome.storage.local.set({ model: DEFAULT_MODEL });
+  }
   if (apiKey) {
     els.apiKey.value = apiKey;
   } else {
@@ -54,7 +59,7 @@ els.saveKey.addEventListener("click", async () => {
   }
   await chrome.storage.local.set({
     apiKey: key,
-    model: els.model.value.trim() || DEFAULT_MODEL,
+    model: els.model.value || DEFAULT_MODEL,
   });
   els.settings.classList.add("hidden");
   showStatus("Einstellungen gespeichert.", "success");
@@ -138,16 +143,21 @@ const SYSTEM_PROMPT = `Du bist ein Experte für Secondhand-Mode und schreibst ve
 Du bekommst mehrere Fotos desselben Kleidungsstücks und antwortest ausschließlich mit einem JSON-Objekt:
 {"title": "...", "description": "..."}
 
+Schau dir alle Fotos gründlich an, auch Etiketten, Waschzettel, Nähte, Knöpfe, Reißverschlüsse und Prints.
+
 Regeln für den Titel (max. 60 Zeichen):
 - Marke (falls erkennbar), Art des Kleidungsstücks, wichtigstes Merkmal (Farbe/Muster/Stil)
 - Größe nur nennen, wenn sie auf einem Etikett klar lesbar ist
 
-Regeln für die Beschreibung:
-- Freundlicher, ehrlicher Ton, kurze Absätze
-- Nenne: Art, Marke, Farbe, Material (falls auf Etikett erkennbar), Größe (falls erkennbar), Zustand, Besonderheiten
-- Erwähne sichtbare Mängel ehrlich
-- Erfinde nichts, was auf den Fotos nicht erkennbar ist. Wenn Größe oder Material nicht erkennbar sind, lass sie weg.
-- Beende mit 3-5 passenden Hashtags`;
+Regeln für die Beschreibung (ca. 80-140 Wörter, drei kurze Absätze):
+1. Absatz – Was ist es: Art des Kleidungsstücks, Marke, Farbe(n), Muster, Schnitt/Stil (z. B. Oversized, tailliert, High-Waist). Material und Größe nur, wenn auf einem Etikett lesbar.
+2. Absatz – Details und Zustand: Besonderheiten wie Taschen, Knöpfe, Reißverschlüsse, Kapuze, Prints, Stickereien, Waschung. Den Zustand ehrlich einschätzen (z. B. neuwertig, sehr gut, gut) und sichtbare Mängel wie Pilling, Flecken oder ausgeblichene Stellen klar benennen.
+3. Absatz – Passform und Styling: Wie das Teil fällt bzw. wirkt und wozu es passt (Anlässe, Kombinationen, Jahreszeit).
+
+Wichtig:
+- Freundlicher, ehrlicher Ton, keine übertriebenen Verkaufsfloskeln
+- Erfinde nichts, was auf den Fotos nicht erkennbar ist – lieber ein Detail weglassen als raten
+- Keine Hashtags, keine Emojis, keine Anrede`;
 
 els.generateBtn.addEventListener("click", async () => {
   const { apiKey, model } = await chrome.storage.local.get(["apiKey", "model"]);

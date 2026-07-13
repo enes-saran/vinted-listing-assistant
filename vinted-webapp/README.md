@@ -86,10 +86,11 @@ kann man die Texte auch noch direkt in den Feldern anpassen.
 - Rein statische Web-App (HTML/CSS/JS), kein Build, kein Server; als PWA
   installierbar (`manifest.webmanifest` + `sw.js`, der Service Worker cached
   nur die App-Shell)
-- API-Key und Modell liegen in `localStorage`, Standard-Modell `gpt-5.4-mini`
-  (im ⚙️-Menü änderbar); Bilder werden clientseitig auf max. 1024 px
-  verkleinert und mit `detail: "low"` gesendet — Kosten pro Anzeige deutlich
-  unter einem halben Cent
+- API-Key und Modell liegen in `localStorage`, Standard-Modell `gpt-5.6-luna`
+  (im ⚙️-Menü per Auswahlliste änderbar, Kosten-Übersicht in
+  `../vinted-extension/README.md`); Bilder werden clientseitig auf max.
+  1024 px verkleinert und mit `detail: "low"` gesendet — Kosten pro Anzeige
+  je nach Modell ~0,3 bis ~1 Cent
 - Lokaler Schnelltest: `python3 -m http.server 8080` in diesem Ordner, dann
   am Handy `http://<IP-des-Rechners>:8080` öffnen (gleiches WLAN); ohne HTTPS
   greift beim Kopieren automatisch ein Fallback

@@ -38,11 +38,19 @@ einmalig Prepaid-Guthaben auf und zahlst pro Anfrage.
 
 ## Modellwahl
 
-Voreingestellt ist `gpt-5.4-mini` ($0.75 / $4.50 pro 1M Input-/Output-Tokens) —
-günstig und für diese Aufgabe völlig ausreichend. Im ⚙️-Menü kann jedes andere
-multimodale OpenAI-Modell eingetragen werden, z. B. `gpt-5.4`, falls die
-Textqualität mal nicht reichen sollte. Das ältere `gpt-4o` lohnt sich nicht mehr:
-teurer als mini bei schlechterer Qualität.
+Im ⚙️-Menü lässt sich das KI-Modell per Auswahlliste wechseln. Kosten pro
+Anzeige (5–6 Fotos, verkleinert, `detail: "low"` — grobe Schätzung bei
+~800 Input- und ~600 Output-Tokens):
+
+| Modell | Preis pro 1M Tokens (Input/Output) | Kosten pro Anzeige |
+|---|---|---|
+| `gpt-5.6-luna` (Standard) | $1.00 / $6.00 | ~0,5 Cent |
+| `gpt-5.6-terra` | $2.50 / $15.00 | ~1 Cent |
+| `gpt-5.4-mini` | $0.75 / $4.50 | ~0,3 Cent |
+
+Selbst mit dem besten Modell erstellt man für $5 Guthaben also noch
+mehrere hundert Anzeigen. Das ältere `gpt-4o` lohnt sich nicht mehr:
+teurer als die Mini-Modelle bei schlechterer Qualität.
 
 ## Benutzung
 

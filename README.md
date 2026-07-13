@@ -1,7 +1,7 @@
 # Vinted Listing Assistant
 
 Spart Zeit beim Erstellen von Vinted-Anzeigen: Fotos eines Kleidungsstücks hochladen,
-eine KI (OpenAI, standardmäßig `gpt-5.4-mini`) erstellt automatisch einen passenden
+eine KI (OpenAI, standardmäßig `gpt-5.6-luna`) erstellt automatisch einen passenden
 Titel und eine Beschreibung auf Deutsch.
 
 Da Vinted keine öffentliche API anbietet, gibt es zwei Varianten für die beiden
