@@ -23,6 +23,8 @@ und Guthaben) stehen in den READMEs der jeweiligen Ordner.
    → Anleitung in [`vinted-extension/README.md`](vinted-extension/README.md)
 2. **Desktop:** Extension laden (`chrome://extensions` → Entwicklermodus →
    „Entpackte Erweiterung laden“ → `vinted-extension/`)
-3. **Handy:** `vinted-webapp/` hosten und die URL am Handy öffnen
-   → Anleitung in [`vinted-webapp/README.md`](vinted-webapp/README.md)
+3. **Handy:** Die Web-App einmal über GitHub Pages veröffentlichen, dann den
+   Link am Handy öffnen und zum Startbildschirm hinzufügen — es muss nichts
+   heruntergeladen werden. Schritt-für-Schritt-Anleitung (auch für
+   Nicht-Techniker) in [`vinted-webapp/README.md`](vinted-webapp/README.md)
 4. In beiden Varianten: ⚙️ → API-Key eintragen → Fotos hochladen → generieren

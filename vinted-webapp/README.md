@@ -1,57 +1,98 @@
-# Vinted Listing Assistant (Web-App / PWA)
+# Vinted Listing Assistant — Handy-App
 
-Die Mobil-Variante des Vinted Listing Assistant: Fotos eines Kleidungsstücks hochladen,
-Titel + Beschreibung werden per OpenAI-API generiert, dann per **Kopieren-Button**
-in die Vinted-App übernehmen. Funktioniert auf iPhone, Android und Desktop —
-im Gegensatz zur Chrome Extension (siehe `../vinted-extension/`), die nur am
-Desktop läuft, dort aber automatisch ins Formular einträgt.
+Fotos von einem Kleidungsstück auswählen, und die App schreibt automatisch
+einen Titel und eine Beschreibung für Vinted. Die Texte werden kopiert und
+in der Vinted-App eingefügt — fertig.
 
-## Hosting
+**Wichtig zu wissen:** Es muss nichts von GitHub aufs Handy heruntergeladen
+werden. Die App wird einmal ins Internet gestellt (Schritt 1, macht der
+Entwickler am Computer) und danach einfach wie eine Internetseite geöffnet.
 
-Die App ist rein statisch (HTML/CSS/JS, kein Server nötig). Zwei Wege:
+---
 
-**Empfohlen — kostenlos hosten (HTTPS):**
-Den Ordner `vinted-webapp/` z. B. auf [Netlify Drop](https://app.netlify.com/drop)
-ziehen oder über GitHub Pages veröffentlichen. HTTPS ist wichtig, damit die
-Kopieren-Buttons und die „Zum Home-Bildschirm hinzufügen“-Funktion (PWA)
-zuverlässig funktionieren.
+## Schritt 1: Die App online stellen (einmalig, am Computer)
 
-**Schnelltest im lokalen Netz:**
+Am einfachsten mit **GitHub Pages** — kostenlos, direkt aus diesem Repository:
 
-```bash
-cd vinted-webapp
-python3 -m http.server 8080
-```
+1. Das Repository auf GitHub öffnen → **Settings** → links **Pages**
+2. Bei „Source“ **Deploy from a branch** wählen
+3. Branch **main** und Ordner **/ (root)** auswählen → **Save**
+4. Nach 1–2 Minuten ist die App erreichbar unter:
+   `https://DEIN-USERNAME.github.io/REPO-NAME/vinted-webapp/`
 
-Dann am Handy `http://<IP-des-Rechners>:8080` öffnen (gleiches WLAN).
-Hinweis: Ohne HTTPS greift beim Kopieren ein Fallback — funktioniert, ist
-aber nur zum Testen gedacht.
+Hinweis: Bei einem kostenlosen GitHub-Account funktioniert Pages nur, wenn das
+Repository **öffentlich** ist. Das ist hier unbedenklich — im Code stecken keine
+Passwörter oder API-Keys (die liegen nur auf dem jeweiligen Gerät). Wer das
+Repository lieber privat lassen will, kann den Ordner `vinted-webapp/`
+stattdessen kostenlos bei [Netlify](https://app.netlify.com/drop) hochziehen.
 
-## Einrichtung auf dem Handy
+---
 
-1. Die gehostete URL im Browser öffnen
-2. ⚙️ → OpenAI API-Key eintragen → **Speichern**
-   (Key und Modell werden nur lokal auf dem Gerät gespeichert;
-   API-Einrichtung siehe `../vinted-extension/README.md`)
-3. Optional: über das Browser-Menü **„Zum Home-Bildschirm hinzufügen“** —
-   die App startet dann wie eine normale App im Vollbild
+## Schritt 2: Die App aufs Handy bringen (einmalig, ca. 5 Minuten)
 
-## Benutzung
+Am besten macht ihr das einmal gemeinsam:
 
-1. App öffnen → 📷 **Fotos auswählen** (5–6 Stück, direkt aus der Galerie oder Kamera)
-2. **„Titel & Beschreibung generieren“** tippen
-3. Texte bei Bedarf anpassen, dann **📋 Kopieren** (erst Titel, dann Beschreibung)
-4. In der Vinted-App die Anzeige erstellen und die Texte einfügen
+1. **Link aufs Handy schicken** — die Adresse aus Schritt 1 z. B. per
+   WhatsApp an das Handy senden und dort antippen. Die App öffnet sich
+   im Browser.
 
-Das letzte Ergebnis bleibt gespeichert — man kann also zwischen dieser App
-und der Vinted-App hin- und herwechseln, ohne dass etwas verloren geht.
+2. **Als App auf den Startbildschirm legen** (damit sie wie eine normale
+   App aussieht und mit einem Tipp startet):
+   - **iPhone:** Der Link muss in **Safari** geöffnet sein. Unten in der
+     Mitte das **Teilen-Symbol** (Viereck mit Pfeil nach oben) antippen →
+     nach unten wischen → **„Zum Home-Bildschirm“** → **Hinzufügen**
+   - **Android:** In **Chrome** oben rechts das **Drei-Punkte-Menü ⋮**
+     antippen → **„App installieren“** (oder „Zum Startbildschirm
+     hinzufügen“) → bestätigen
 
-## Technische Hinweise
+3. **Einmal den Schlüssel eintragen** (macht der Entwickler): In der App
+   oben rechts auf **⚙️** tippen, den OpenAI API-Key einfügen und auf
+   **Speichern** tippen. Der Schlüssel bleibt dauerhaft auf dem Handy
+   gespeichert — dieser Schritt ist nur einmal nötig.
 
-- Modell voreingestellt: `gpt-5.4-mini` (im ⚙️-Menü änderbar)
-- Bilder werden vor dem API-Aufruf auf max. 1024 px verkleinert und mit
-  `detail: "low"` gesendet — Kosten pro Anzeige: deutlich unter einem halben Cent
-- Der Service Worker (`sw.js`) cached nur die App-Oberfläche (für Installierbarkeit
-  und Offline-Start); API-Aufrufe gehen immer direkt ins Netz
-- Kein automatisches Eintragen möglich: In die native Vinted-App kann keine
-  Web-Technologie hineinschreiben — deshalb der Weg über die Kopieren-Buttons
+Fertig! Ab jetzt startet die App direkt vom Startbildschirm.
+
+---
+
+## So wird die App benutzt
+
+1. Auf dem Startbildschirm das **türkise V** antippen
+2. **„📷 Fotos auswählen“** antippen und 5–6 Fotos des Kleidungsstücks
+   aus der Galerie auswählen (oder direkt neue machen)
+3. **„✨ Titel & Beschreibung generieren“** antippen und einen Moment warten
+4. Beim Titel auf **„📋 Kopieren“** tippen → in die **Vinted-App** wechseln →
+   beim Erstellen der Anzeige in das Titel-Feld tippen, **Finger gedrückt
+   halten** und **„Einfügen“** wählen
+5. Zurück in die Assistent-App, bei der Beschreibung auf **„📋 Kopieren“**
+   tippen → in Vinted genauso in das Beschreibungs-Feld einfügen
+
+Die Texte bleiben gespeichert — man kann also beliebig zwischen den beiden
+Apps hin- und herwechseln, ohne dass etwas verloren geht. Vor dem Kopieren
+kann man die Texte auch noch direkt in den Feldern anpassen.
+
+## Wenn etwas nicht klappt
+
+| Problem | Lösung |
+|---|---|
+| Rote Fehlermeldung mit „insufficient_quota“ | Das OpenAI-Guthaben ist leer — der Entwickler muss auf [platform.openai.com](https://platform.openai.com/settings/organization/billing/overview) neues Guthaben aufladen |
+| „Bitte zuerst deinen OpenAI API-Key hinterlegen“ | Schritt 2, Punkt 3 wiederholen (⚙️ → Key eintragen) |
+| Kopieren-Knopf reagiert nicht | Text im Feld gedrückt halten → „Alles auswählen“ → „Kopieren“ |
+| App-Symbol versehentlich gelöscht | Kein Problem — Link erneut im Browser öffnen und wieder zum Startbildschirm hinzufügen; alle Einstellungen sind noch da |
+
+---
+
+## Technische Details (für Entwickler)
+
+- Rein statische Web-App (HTML/CSS/JS), kein Build, kein Server; als PWA
+  installierbar (`manifest.webmanifest` + `sw.js`, der Service Worker cached
+  nur die App-Shell)
+- API-Key und Modell liegen in `localStorage`, Standard-Modell `gpt-5.4-mini`
+  (im ⚙️-Menü änderbar); Bilder werden clientseitig auf max. 1024 px
+  verkleinert und mit `detail: "low"` gesendet — Kosten pro Anzeige deutlich
+  unter einem halben Cent
+- Lokaler Schnelltest: `python3 -m http.server 8080` in diesem Ordner, dann
+  am Handy `http://<IP-des-Rechners>:8080` öffnen (gleiches WLAN); ohne HTTPS
+  greift beim Kopieren automatisch ein Fallback
+- Kein automatisches Eintragen in die Vinted-App möglich (native App) —
+  deshalb die Kopieren-Buttons; das Auto-Ausfüllen gibt es nur in der
+  Desktop-Variante (`../vinted-extension/`)
