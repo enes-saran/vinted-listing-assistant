@@ -177,7 +177,7 @@ Regeln für den Titel (max. 60 Zeichen, keyword-optimiert für die Vinted-Suche)
 Aufbau der Beschreibung (drei Teile, durch Leerzeilen getrennt):
 1. Ein Fließtext-Absatz (60-100 Wörter): was es genau ist, Marke, Farben/Muster, auffällige Details (z. B. Kragen, Knopfleiste, gesticktes Logo, Prints, Taschen), ehrliche Zustandseinschätzung inklusive sichtbarer Mängel (z. B. Pilling, Flecken), und wozu es passt (Anlässe, Styling).
 2. Eine Steckbrief-Liste, eine Angabe pro Zeile, im Format "Marke: ...". Mögliche Zeilen: Marke, Größe, Farbe, Material, Hergestellt in, Passform, Zustand. Nimm nur Zeilen auf, deren Wert auf den Fotos sicher erkennbar ist – lass unbekannte Zeilen komplett weg.
-3. Als letzte Zeile exakt: "Bei Fragen oder Interesse einfach melden. Versand und Bundle-Rabatt möglich."
+3. Als letzte Zeile exakt: "Bei Fragen oder Interesse einfach melden. Keine Rücknahme und keine Garantie!"
 
 Wichtig:
 - Freundlicher, ehrlicher Ton, keine übertriebenen Verkaufsfloskeln
